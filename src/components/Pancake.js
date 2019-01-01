@@ -10,28 +10,31 @@ class Pancake extends React.Component {
     };
   }
 
-updateCounter = () => {
-  this.setState({
-    timeCooked: this.state.timeCooked + 1
-  });
-};
+  // TODO: create a componentDidMount() which will start the interval to count how long the pancake has been cooking
 
-// TODO: create a componentDidMount() which will start the interval to count how long the pancake has been cooking
-componentDidMount(){
-this.startInterval();
-}
-// TODO: create a componentWillUnmount() which will clear the interval
-componentWillUnmount() {
-    this.cleanUpInterval()
+    componentDidMount() {
+    this.startInterval();
   }
 
-startInterval = () => {
-  this.interval = setInterval(this.updateCounter, 1000);
-};
+  // TODO: create a componentWillUnmount() which will clear the interval
 
-cleanUpInterval = () => {
-  clearInterval(this.interval);
-};
+  componentWillUnmount() {
+    this.cleanUpInterval();
+}
+
+  updateCounter = () => {
+    this.setState({
+      timeCooked: this.state.timeCooked + 1
+    });
+  };
+
+  startInterval = () => {
+    this.interval = setInterval(this.updateCounter, 1000);
+  }
+
+  cleanUpInterval = () => {
+    clearInterval(this.interval);
+  }
 
   flip = () => {
     this.setState({
@@ -50,9 +53,10 @@ cleanUpInterval = () => {
     }
 
     //second side
-    if (flippedAt > 2 || timeCooked > 4) return "burnt";
-    if (timeCooked === 4 && flippedAt === 2) return "cooked";
-    return "raw";
+    if (timeCooked > 4) return 'burnt'
+    if (timeCooked === 4) return 'cooked'
+    if (timeCooked < 4) return 'raw'
+    return 'burnt'
   };
 
   takeItOff = () => {
@@ -87,5 +91,4 @@ cleanUpInterval = () => {
     );
   }
 }
-
 export default Pancake;
